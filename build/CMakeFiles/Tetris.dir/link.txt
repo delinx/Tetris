@@ -1,0 +1,1 @@
+/usr/bin/clang++ -fstack-protector -Wdeprecated -Wunused-parameter -ffunction-sections -fdata-sections -fno-common -Wconversion -Wall -Wextra -Wformat=2 -Wundef -Werror -Wshadow -Wdouble-promotion -g3 -O0 -pedantic -fcolor-diagnostics -Wno-unused-variable -Wno-unused-parameter -fsanitize=address -fno-omit-frame-pointer CMakeFiles/Tetris.dir/main.cpp.o -o Tetris 
