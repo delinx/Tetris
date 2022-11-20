@@ -1,6 +1,6 @@
 CMakeFiles/Tetris.dir/main.cpp.o: \
   /usr/lib/clang/14.0.6/share/asan_ignorelist.txt \
-  /home/del/cpp/Tetris/src/main.cpp \
+  /home/del/cpp/Tetris/src/main.cpp /home/del/cpp/Tetris/src/log.hpp \
   /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/iostream \
   /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
   /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -146,4 +146,5 @@ CMakeFiles/Tetris.dir/main.cpp.o: \
   /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/bits/basic_ios.tcc \
   /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/bits/ostream.tcc \
   /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/istream \
-  /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/bits/istream.tcc
+  /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.0/../../../../include/c++/12.2.0/bits/istream.tcc \
+  /home/del/cpp/Tetris/build/_deps/raylib-src/src/raylib.h
