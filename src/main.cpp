@@ -39,10 +39,7 @@ int main()
 
         // input
         // - debug toggle
-        if(IsKeyPressed(KEY_TAB))
-        {
-            Debug = !Debug;
-        }
+        Debug = (IsKeyPressed(KEY_TAB)) ? !Debug : Debug;
 
         // animation update tick
         // TODO
