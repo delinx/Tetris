@@ -1,3 +1,4 @@
+#include "gfxhelper.hpp"
 #include "log.hpp"
 #include "raylib.h"
 #include <iostream>
@@ -18,8 +19,7 @@ int main()
     float lastTimelogicTick = 0.f;
     float logicTickDuration = 0.5f;  // every 500 ms
     // Other
-    bool c_logicTick = true;
-    Color c_logicTickColor = RED;
+    FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     while(!WindowShouldClose())
     {
         // tick variables
@@ -32,22 +32,9 @@ int main()
             lastTimelogicTick = time;
             if(Debug)
             {
-                if(c_logicTick)
-                {
-                    c_logicTickColor = RED;
-                    c_logicTick = !c_logicTick;
-                }
-                else
-                {
-                    c_logicTickColor = YELLOW;
-                    c_logicTick = !c_logicTick;
-                }
+                // - Flip debug circle color every logical tick
+                gfxLogicTick.flip();
             }
-        }
-        // - Flip debug tick circle color every tick
-        if(Debug)
-        {
-            DrawCircle(120, 18, 5, c_logicTickColor);
         }
 
         // input
@@ -57,6 +44,9 @@ int main()
             Debug = !Debug;
         }
 
+        // animation update tick
+        // TODO
+
         // drawing
         BeginDrawing();
         ClearBackground(DARKGRAY);
@@ -64,6 +54,7 @@ int main()
         if(Debug)
         {
             DrawFPS(10, 10);
+            gfxLogicTick.draw(110, 19, 6);
             DrawText(("Frame time: " + std::to_string(DeltaTime)).c_str(), 10, 35, 12, WHITE);
             DrawText(("Time: " + std::to_string(time)).c_str(), 10, 50, 12, WHITE);
         }
