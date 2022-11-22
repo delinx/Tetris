@@ -32,8 +32,7 @@ int main()
     field->grid->set(5, 15, 8);
     field->Debug = !true;
     // stuck status
-    bool movedLastTurn = false;
-    bool movedThisTurn = false;
+    int unmovedTurns = 0;
     // gravity
     i32 maxContinuesMoves = 2;
     i32 continuesMoves = 0;
@@ -63,8 +62,7 @@ int main()
                 // - Flip debug circle color every logical tick
                 gfxLogicTick.flip();
             }
-            movedLastTurn = movedThisTurn;
-            movedThisTurn = false;
+            unmovedTurns++;
             // tick
             // 1. check if there is an active shape
             // 2. Input
@@ -112,7 +110,7 @@ int main()
                         {
                             // if shape can fit in the reqested position
                             field->xShape = newPossibleX;
-                            movedThisTurn = true;
+                            unmovedTurns = 0;
                             continuesMoves++;
                             if(Debug)
                             {
@@ -134,7 +132,7 @@ int main()
                     if(field->canFit(field->xShape, newPossibleY))
                     {
                         field->yShape = newPossibleY;
-                        movedThisTurn = true;
+                        unmovedTurns = 0;
                         continuesMoves = 0;
                         // Debug print of tick state
                         if(Debug)
@@ -147,7 +145,7 @@ int main()
             }
 
             // 4. check if stuck (if so then bake it into grid)
-            if(!movedLastTurn && !movedThisTurn && field->shape != NULL)
+            if(unmovedTurns >= 3 && field->shape != NULL && !input)
             {
                 // burn shape into grid
                 field->burnShapeIntoGrid();
@@ -155,6 +153,9 @@ int main()
                 // remove old shape
                 delete field->shape;
                 field->shape = NULL;
+
+                // reset unmoved turns status
+                unmovedTurns = 0;
 
                 log(" * We are OFFICIALY stuck! * ");
             }
