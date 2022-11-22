@@ -32,6 +32,12 @@ class LOGIC
 
         /// prints grids' values as rows and columns
         void print();
+
+        /// rotates grid
+        void rotate(bool clockwise);
+
+        /// ruturns pointer to a copy of itself
+        Grid *copy();
     };
 
     struct Field

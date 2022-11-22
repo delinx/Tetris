@@ -27,6 +27,7 @@ int main()
     // input
     bool input = false;
     i32 inputX = 0;
+    i32 inputR = 0;
     // playing field
     LOGIC::Field *field = new LOGIC::Field(10, 20);
     field->grid->set(5, 15, 8);
@@ -49,6 +50,11 @@ int main()
         if(IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_RIGHT))
         {
             inputX = IsKeyPressed(KEY_LEFT) ? -1 : 1;
+            input = true;
+        }
+        if(IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_DOWN))
+        {
+            inputR = IsKeyPressed(KEY_UP) ? -1 : 1;
             input = true;
         }
 
@@ -87,6 +93,7 @@ int main()
                 field->shape->set(0, 2, 0);
                 field->shape->set(1, 2, 1);
                 field->shape->set(2, 2, 0);
+
                 field->shapeResetPos();
                 if(Debug)
                 {
@@ -101,7 +108,7 @@ int main()
                 {
                     if(Debug)
                     {
-                        log(" $ INPUT [>] or [<] $");
+                        log(" $ INPUT move [>] or [<] $");
                     }
                     if(field->shape != NULL)
                     {
@@ -120,6 +127,40 @@ int main()
                     }
                 }
                 // Rotation request
+                if(inputR > 0 || inputR < 0)
+                {
+                    if(Debug)
+                    {
+                        log(" $ INPUT Rotate [C] or [AC] $");
+                    }
+                    if(field->shape != NULL)
+                    {
+                        // make temp copy of current shape
+                        LOGIC::Grid *tmp_copy = field->shape->copy();
+                        // rotate the copy
+                        if(inputR == -1)
+                        {
+                            tmp_copy->rotate(false);
+                        }
+                        else
+                        {
+                            tmp_copy->rotate(true);
+                        }
+                        // check if copy can fit at current shape XY
+                        if(field->canFit(field->xShape, field->yShape))
+                        {
+                            // if shape can fit in the reqested position
+                            delete field->shape;
+                            field->shape = tmp_copy;
+                            continuesMoves++;
+                            if(Debug)
+                            {
+                                log(" * Shape was ROTATED * ");
+                                field->printWithShape(field->xShape, field->yShape);
+                            }
+                        }
+                    }
+                }
             }
 
             // 3.Gravity (only if there was no input)
@@ -162,6 +203,7 @@ int main()
 
             // - reset input
             inputX = 0;
+            inputR = 0;
             input = false;
         }
 

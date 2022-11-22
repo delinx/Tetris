@@ -59,6 +59,51 @@ void LOGIC::Grid::print()
     log(buffer);
 }
 
+void LOGIC::Grid::rotate(bool clockwise)
+{
+    Grid *tmpGrid = new Grid(WIDTH, HEIGHT);
+
+    for(unsigned int Sx = 0; Sx < WIDTH; Sx++)
+    {
+        for(unsigned int Sy = 0; Sy < HEIGHT; Sy++)
+        {
+            tmpGrid->set(Sx, Sy, get(Sy, Sx));
+        }
+    }
+
+    // Mirror each column (i.e. switch index [i][j] to [i][size-j])
+    //
+    // Mirror columns for anti-clockwise
+    // Mirror rows for clockwise
+    for(unsigned int Sx = 0; Sx < WIDTH; Sx++)
+    {
+        for(unsigned int Sy = 0; Sy < HEIGHT; Sy++)
+        {
+            if(!clockwise)
+            {
+                set(Sx, Sy, tmpGrid->get(Sx, HEIGHT - 1 - Sy));
+            }
+            else
+            {
+                set(Sx, Sy, tmpGrid->get(WIDTH - 1 - Sx, Sy));
+            }
+        }
+    }
+
+    delete tmpGrid;
+}
+LOGIC::Grid *LOGIC::Grid::copy()
+{
+    Grid *tmp = new Grid(WIDTH, HEIGHT);
+
+    for(int i = 0; i < WIDTH * HEIGHT; i++)
+    {
+        tmp->grid[i] = grid[i];
+    }
+
+    return tmp;
+}
+
 void LOGIC::Field::shapeResetPos()
 {
     yShape = -3;
