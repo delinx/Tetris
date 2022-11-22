@@ -35,6 +35,7 @@ int main()
     bool movedLastTurn = false;
     bool movedThisTurn = false;
     // gravity
+    i32 maxContinuesMoves = 2;
     i32 continuesMoves = 0;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
@@ -125,7 +126,7 @@ int main()
 
             // 3.Gravity (only if there was no input)
             // - TODO: Input should only be able to skip 2 gravity ticks in a row max
-            if(!input || continuesMoves > 2)
+            if(!input || continuesMoves > maxContinuesMoves)
             {
                 if(field->shape != NULL)
                 {
