@@ -36,7 +36,18 @@ class LOGIC
 
     struct Field
     {
+        bool Debug = false;
+        Grid *grid = NULL;
+        Grid *shape = NULL;
         Field(u32 width, u32 height);
+        ~Field();
+
+        /// check if shape can fit in the XY position of grid
+        bool canFit(i32 x, i32 y);
+        /// attemps to move shape with gravity on grid
+        void gravityTick();
+
+        // i32 findSolvedRow();
     };
 };
 

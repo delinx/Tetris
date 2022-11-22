@@ -14,11 +14,13 @@ int main()
     SetExitKey(KEY_BACKSPACE);
 
     // remove this area
-    if(0)
+    if(1)
     {
-        LOGIC::Grid *field = new LOGIC::Grid(10, 20);
-        field->set(1, 1, 1);
-        field->print();
+        LOGIC::Field *field = new LOGIC::Field(10, 20);
+        field->Debug = true;
+        field->shape = new LOGIC::Grid(3, 3);
+        field->shape->set(1, 1, 1);
+        field->canFit(0, 0);
     }
     // up to this point
 

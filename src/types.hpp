@@ -1,5 +1,6 @@
 #ifndef TYPES_HPP
 #define TYPES_HPP
+#include <iostream>
 
 // 1 byte
 typedef char i8;
