@@ -32,6 +32,7 @@ int main()
     field->Debug = true;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
+    int offset = 0;
     while(!WindowShouldClose())
     {
         // tick variables
@@ -57,8 +58,8 @@ int main()
             }
             // tick
             // 1. check if there is an active shape
-            // 2. Gravity
-            // 3. Input
+            // 2. Input
+            // 3. Gravity
             // 4. Solved rows
             // 5. Activations
             // 6. Lose state check
@@ -70,25 +71,40 @@ int main()
                 // TODO: make so added shape is random
                 field->shape = new LOGIC::Grid(3, 3);
                 field->shape->fill(6);
+                field->shape->set(0, 0, 1);
+                field->shape->set(1, 0, 2);
+                field->shape->set(2, 0, 3);
+                field->shape->set(1, 1, 9);
                 if(Debug)
                 {
                     log(" -+- New shape spawned -+- ");
                 }
             }
-            // input
+            // 2. Input
             if(input)
             {
                 if(inputX > 0)
                 {
                     log(">");
+                    offset++;
                 }
                 else if(inputX < 0)
                 {
                     log("<");
+                    offset--;
                 }
                 // - reset input
                 inputX = 0;
                 input = false;
+            }
+            // 3.Gravity
+            // Debug print of tick state
+            if(Debug && field->shape != NULL)
+            {
+                if(field->canFit(0 + offset, 0))
+                {
+                    field->printWithShape(0 + offset, 0);
+                }
             }
         }
 

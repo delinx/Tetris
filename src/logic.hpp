@@ -46,6 +46,8 @@ class LOGIC
         bool canFit(i32 x, i32 y);
         /// attemps to move shape with gravity on grid
         void gravityTick();
+        /// debug print grid + shape
+        void printWithShape(i32 x, i32 y);
 
         // i32 findSolvedRow();
     };

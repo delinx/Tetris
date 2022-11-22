@@ -98,6 +98,7 @@ bool LOGIC::Field::canFit(i32 x, i32 y)
                 // check if cell can fit in X axis of field
                 if((i32)shapeX + x >= 0 && (i32)shapeX + x < (i32)grid->WIDTH)
                 {
+                    // log(shapeX);
                 }
                 else
                 {
@@ -141,5 +142,37 @@ bool LOGIC::Field::canFit(i32 x, i32 y)
     {
         log("***\n");
     }
-    return false;
+    return true;
+}
+
+
+void LOGIC::Field::printWithShape(i32 x, i32 y)
+{
+    Grid *tmpGrid = new Grid(grid->WIDTH, grid->HEIGHT);
+
+    // copy grid to tmpGrid
+    for(usize gridY = 0; gridY < shape->WIDTH; gridY++)
+    {
+        for(usize gridX = 0; gridX < shape->HEIGHT; gridX++)
+        {
+            i32 value = grid->get(gridX, gridY);
+            tmpGrid->set(gridX, gridY, value);
+        }
+    }
+
+    for(usize shapeY = 0; shapeY < shape->WIDTH; shapeY++)
+    {
+        for(usize shapeX = 0; shapeX < shape->HEIGHT; shapeX++)
+        {
+            i32 value = shape->get((u32)shapeX, (u32)shapeY);
+            if(value != 0)
+            {
+                tmpGrid->set((i32)shapeX + x, (i32)shapeY + y, value);
+            }
+        }
+    }
+
+    tmpGrid->print();
+
+    delete tmpGrid;
 }
