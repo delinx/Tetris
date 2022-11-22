@@ -23,4 +23,33 @@ class FLIPPING_CIRCLE
     Color color = primaryColor;
 };
 
+/// lerp XY
+/// Rotate
+class Sprite
+{
+      public:
+    Sprite(i32 _x, i32 _y, i32 _width, i32 _height, f32 _rot);
+
+    i32 x;
+    i32 y;
+
+    f32 rot;
+
+    i32 width;
+    i32 height;
+
+    RenderTexture2D Canvas;
+
+    void tick();
+    void move(i32 _x, i32 _y);
+    void moveInstant(i32 _x, i32 _y);
+
+    void drawCanvas();
+    void draw();
+
+      private:
+    i32 actualX;
+    i32 actualY;
+};
+
 #endif  // GFXHELPER_HPP

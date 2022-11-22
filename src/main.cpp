@@ -41,7 +41,8 @@ int main()
     i32 continuesMoves = 0;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
-    // debug TODO: Remove
+    // drawing
+    Sprite *tSprite = new Sprite(100, 100, 50, 50, 0.f);
     while(!WindowShouldClose())
     {
         // tick variables
@@ -79,7 +80,7 @@ int main()
             // 4. check if stuck (if so then bake it into grid)
             // 5. Solved rows
             // 6. Activations
-            // 7. Lose state checka
+            // 7. Lose state check
             // 8. drawing (draw in layers so effects can be applied)
             log("tick");
 
@@ -208,8 +209,10 @@ int main()
         Debug = (IsKeyPressed(KEY_TAB)) ? !Debug : Debug;
 
         // animation update tick
-        // TODO
+        tSprite->tick();
 
+        // drawing sprite canvases
+        tSprite->drawCanvas();
         // drawing
         BeginDrawing();
         ClearBackground(DARKGRAY);
@@ -220,6 +223,7 @@ int main()
             gfxLogicTick.draw(110, 19, 6);
             DrawText(("Frame time: " + std::to_string(DeltaTime)).c_str(), 10, 35, 12, WHITE);
             DrawText(("Time: " + std::to_string(time)).c_str(), 10, 50, 12, WHITE);
+            tSprite->draw();
         }
         EndDrawing();
     }
