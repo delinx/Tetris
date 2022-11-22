@@ -34,6 +34,8 @@ int main()
     // stuck status
     bool movedLastTurn = false;
     bool movedThisTurn = false;
+    // gravity
+    i32 continuesMoves = 0;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     // debug TODO: Remove
@@ -110,6 +112,7 @@ int main()
                             // if shape can fit in the reqested position
                             field->xShape = newPossibleX;
                             movedThisTurn = true;
+                            continuesMoves++;
                             if(Debug)
                             {
                                 field->printWithShape(newPossibleX, field->yShape);
@@ -122,18 +125,22 @@ int main()
 
             // 3.Gravity (only if there was no input)
             // - TODO: Input should only be able to skip 2 gravity ticks in a row max
-            if(field->shape != NULL && !input)
+            if(!input || continuesMoves > 2)
             {
-                int newPossibleY = field->yShape + 1;
-                if(field->canFit(field->xShape, newPossibleY))
+                if(field->shape != NULL)
                 {
-                    field->yShape = newPossibleY;
-                    movedThisTurn = true;
-                    // Debug print of tick state
-                    if(Debug)
+                    int newPossibleY = field->yShape + 1;
+                    if(field->canFit(field->xShape, newPossibleY))
                     {
-                        log("! After gravity applied !");
-                        field->printWithShape(field->xShape, newPossibleY);
+                        field->yShape = newPossibleY;
+                        movedThisTurn = true;
+                        continuesMoves = 0;
+                        // Debug print of tick state
+                        if(Debug)
+                        {
+                            log("! After gravity applied !");
+                            field->printWithShape(field->xShape, newPossibleY);
+                        }
                     }
                 }
             }
