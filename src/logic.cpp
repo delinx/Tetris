@@ -69,11 +69,17 @@ LOGIC::Field::~Field()
     delete grid;
 }
 
+
 bool LOGIC::Field::canFit(i32 x, i32 y)
+{
+    return canFitShape(x, y, shape);
+}
+
+bool LOGIC::Field::canFitShape(i32 x, i32 y, Grid *_shape)
 {
     // TODO: Cells above field should be valid for the shape to applear into field
 
-    if(shape == NULL || grid == NULL)
+    if(_shape == NULL || grid == NULL)
     {
         // one of essential parts is NULL
         return false;
@@ -82,16 +88,16 @@ bool LOGIC::Field::canFit(i32 x, i32 y)
     if(Debug)
     {
         log(" *** \n canFit shape: ");
-        shape->print();
+        _shape->print();
         log("canFit grid: ");
         grid->print();
     }
     // check if shape values of not 0 is within bounds of field
-    for(usize shapeY = 0; shapeY < shape->WIDTH; shapeY++)
+    for(usize shapeY = 0; shapeY < _shape->WIDTH; shapeY++)
     {
-        for(usize shapeX = 0; shapeX < shape->HEIGHT; shapeX++)
+        for(usize shapeX = 0; shapeX < _shape->HEIGHT; shapeX++)
         {
-            i32 value = shape->get((u32)shapeX, (u32)shapeY);
+            i32 value = _shape->get((u32)shapeX, (u32)shapeY);
             // logsl(value);
             if(value != 0)
             {

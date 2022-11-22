@@ -43,6 +43,8 @@ class LOGIC
         ~Field();
 
         /// check if shape can fit in the XY position of grid
+        bool canFitShape(i32 x, i32 y, Grid *_shape);
+        /// same as canFitShape but passes default shape
         bool canFit(i32 x, i32 y);
         /// attemps to move shape with gravity on grid
         void gravityTick();
