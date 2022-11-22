@@ -25,10 +25,10 @@ class LOGIC
         i32 get(u32 x, u32 y);
 
         /// override array with value
-        void fill(int num);
+        void fill(i32 num);
 
         /// replace old value with new value
-        void mask(int oldInt, i32 newInt);
+        void mask(i32 oldInt, i32 newInt);
 
         /// prints grids' values as rows and columns
         void print();
