@@ -31,6 +31,9 @@ int main()
     LOGIC::Field *field = new LOGIC::Field(10, 20);
     field->grid->set(5, 15, 8);
     field->Debug = !true;
+    // stuck status
+    bool movedLastTurn = false;
+    bool movedThisTurn = false;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     // debug TODO: Remove
@@ -57,14 +60,17 @@ int main()
                 // - Flip debug circle color every logical tick
                 gfxLogicTick.flip();
             }
+            movedLastTurn = movedThisTurn;
+            movedThisTurn = false;
             // tick
             // 1. check if there is an active shape
             // 2. Input
             // 3. Gravity
-            // 4. Solved rows
-            // 5. Activations
-            // 6. Lose state checka
-            // 7. drawing (draw in layers so effects can be applied)
+            // 4. check if stuck (if so then bake it into grid)
+            // 5. Solved rows
+            // 6. Activations
+            // 7. Lose state checka
+            // 8. drawing (draw in layers so effects can be applied)
             log("tick");
 
             // 1. if there is no active shape then make a new random one
@@ -103,6 +109,7 @@ int main()
                         {
                             // if shape can fit in the reqested position
                             field->xShape = newPossibleX;
+                            movedThisTurn = true;
                             if(Debug)
                             {
                                 field->printWithShape(newPossibleX, field->yShape);
@@ -121,6 +128,7 @@ int main()
                 if(field->canFit(field->xShape, newPossibleY))
                 {
                     field->yShape = newPossibleY;
+                    movedThisTurn = true;
                     // Debug print of tick state
                     if(Debug)
                     {
@@ -128,6 +136,12 @@ int main()
                         field->printWithShape(field->xShape, newPossibleY);
                     }
                 }
+            }
+
+            // 4. check if stuck (if so then bake it into grid)
+            if(!movedLastTurn && !movedThisTurn)
+            {
+                log(" * We are OFFICIALY stuck! * ");
             }
 
             // - reset input
