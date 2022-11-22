@@ -39,14 +39,9 @@ int main()
         time += DeltaTime;
 
         // read input
-        if(IsKeyPressed(KEY_LEFT))
+        if(IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_RIGHT))
         {
-            inputX = -1;
-            input = true;
-        }
-        if(IsKeyPressed(KEY_RIGHT))
-        {
-            inputX = 1;
+            inputX = IsKeyPressed(KEY_LEFT) ? -1 : 1;
             input = true;
         }
 
@@ -85,9 +80,11 @@ int main()
             {
                 if(inputX > 0)
                 {
+                    log(">");
                 }
                 else if(inputX < 0)
                 {
+                    log("<");
                 }
                 // - reset input
                 inputX = 0;
