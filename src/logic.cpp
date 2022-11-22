@@ -73,8 +73,9 @@ bool LOGIC::Field::canFit(i32 x, i32 y)
 {
     // TODO: Cells above field should be valid for the shape to applear into field
 
-    if(shape == NULL)
+    if(shape == NULL || grid == NULL)
     {
+        // one of essential parts is NULL
         return false;
     }
 
@@ -94,9 +95,44 @@ bool LOGIC::Field::canFit(i32 x, i32 y)
             // logsl(value);
             if(value != 0)
             {
-                log(value);
-                log(shapeX);
-                log(shapeY);
+                // check if cell can fit in X axis of field
+                if((i32)shapeX + x >= 0 && (i32)shapeX + x < (i32)grid->WIDTH)
+                {
+                }
+                else
+                {
+                    if(Debug)
+                    {
+                        log(" X (" + std::to_string(value) + ") " + std::to_string(shapeX) + ":" + std::to_string(shapeY) + " of shape does not fit within grid " + std::to_string(x) + ":" + std::to_string(y));
+                    }
+                    return false;
+                }
+
+                // check if cell can fit in Y axis of field
+                if((i32)shapeY + y < (i32)grid->HEIGHT)
+                {
+                }
+                else
+                {
+                    if(Debug)
+                    {
+                        log("Y (" + std::to_string(value) + ") " + std::to_string(shapeX) + ":" + std::to_string(shapeY) + " of shape does not fit within grid " + std::to_string(x) + ":" + std::to_string(y));
+                    }
+                    return false;
+                }
+
+                // check if cell of grid underneath is empty
+                if(grid->get((u32)shapeX + (u32)x, (u32)shapeY + (u32)y) == 0)
+                {
+                }
+                else
+                {
+                    if(Debug)
+                    {
+                        log("Y (" + std::to_string(value) + ") " + std::to_string(shapeX) + ":" + std::to_string(shapeY) + " of shape does not fit because cell is not empty " + std::to_string(x + (i32)shapeX) + ":" + std::to_string(y + (i32)shapeY) + "(" + std::to_string(grid->get((u32)shapeX + (u32)x, (u32)shapeY + (u32)y)) + ")");
+                    }
+                    return false;
+                }
             }
         }
     }

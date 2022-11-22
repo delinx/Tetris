@@ -10,7 +10,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # don't build the supplied example g
 FetchContent_Declare(raylib GIT_REPOSITORY https://github.com/raysan5/raylib.git GIT_TAG master)
 FetchContent_MakeAvailable(raylib)
 
-set(CMAKE_CXX_FLAGS "-fstack-protector -Wdeprecated -Wunused-parameter -ffunction-sections -fdata-sections -fno-common -Wconversion -Wall -Wextra -Wformat=2 -Werror -Wshadow -Wdouble-promotion -g3 -O0 -pedantic -fcolor-diagnostics -Wno-unused-variable -Wno-unused-parameter -fsanitize=address -fno-omit-frame-pointer")
+set(CMAKE_CXX_FLAGS "-fstack-protector -Wdeprecated -Wunused-parameter -ffunction-sections -fdata-sections -fno-common -Wconversion -Wall -Wextra -Wformat=2 -Wshadow -Wdouble-promotion -g3 -O0 -pedantic -fcolor-diagnostics -Wno-unused-variable -Wno-unused-parameter -fsanitize=address -fno-omit-frame-pointer")
 
 # Add main.cpp file of project root directory as source file
 set(SOURCE_FILES main.cpp log.cpp gfxhelper.cpp logic.cpp)
