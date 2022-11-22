@@ -74,6 +74,10 @@ LOGIC::Field::Field(u32 width, u32 height)
 LOGIC::Field::~Field()
 {
     delete grid;
+    if(shape != NULL)
+    {
+        delete shape;
+    }
 }
 
 
@@ -162,6 +166,21 @@ bool LOGIC::Field::canFitShape(i32 x, i32 y, Grid *_shape)
     return true;
 }
 
+
+void LOGIC::Field::burnShapeIntoGrid()
+{
+    for(usize shapeY = 0; shapeY < shape->HEIGHT; shapeY++)
+    {
+        for(usize shapeX = 0; shapeX < shape->WIDTH; shapeX++)
+        {
+            i32 value = shape->get((u32)shapeX, (u32)shapeY);
+            if(value != 0 && (i32)shapeY + yShape >= 0)
+            {
+                grid->set((i32)shapeX + xShape, (i32)shapeY + yShape, value);
+            }
+        }
+    }
+}
 
 void LOGIC::Field::printWithShape(i32 x, i32 y)
 {

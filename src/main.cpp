@@ -139,8 +139,15 @@ int main()
             }
 
             // 4. check if stuck (if so then bake it into grid)
-            if(!movedLastTurn && !movedThisTurn)
+            if(!movedLastTurn && !movedThisTurn && field->shape != NULL)
             {
+                // burn shape into grid
+                field->burnShapeIntoGrid();
+
+                // remove old shape
+                delete field->shape;
+                field->shape = NULL;
+
                 log(" * We are OFFICIALY stuck! * ");
             }
 

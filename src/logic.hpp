@@ -55,6 +55,9 @@ class LOGIC
         /// debug print grid + shape
         void printWithShape(i32 x, i32 y);
 
+        /// burn shape into grid
+        void burnShapeIntoGrid();
+
         // i32 findSolvedRow();
     };
 };
