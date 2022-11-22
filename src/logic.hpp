@@ -50,6 +50,8 @@ class LOGIC
         Field(u32 width, u32 height);
         ~Field();
 
+        Grid *Shapes[7];
+
         /// check if shape can fit in the XY position of grid
         bool canFitShape(i32 x, i32 y, Grid *_shape);
         /// same as canFitShape but passes default shape
@@ -60,6 +62,8 @@ class LOGIC
         void gravityTick();
         /// debug print grid + shape
         void printWithShape(i32 x, i32 y);
+        /// get random shape
+        LOGIC::Grid *getRandomShape();
 
         /// burn shape into grid
         void burnShapeIntoGrid();

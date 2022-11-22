@@ -87,15 +87,7 @@ int main()
             if(field->shape == NULL)
             {
                 // TODO: make so added shape is random
-                field->shape = new LOGIC::Grid(3, 3);
-                field->shape->fill(6);
-                field->shape->set(0, 0, 1);
-                field->shape->set(1, 0, 2);
-                field->shape->set(2, 0, 3);
-                field->shape->set(1, 1, 9);
-                field->shape->set(0, 2, 0);
-                field->shape->set(1, 2, 1);
-                field->shape->set(2, 2, 0);
+                field->shape = field->getRandomShape()->copy();
 
                 field->shapeResetPos();
                 if(Debug)

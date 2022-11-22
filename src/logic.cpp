@@ -114,6 +114,45 @@ LOGIC::Field::Field(u32 width, u32 height)
 {
     grid = new LOGIC::Grid(width, height);
     shapeResetPos();
+
+    // list of all possible shapes in the neutral rotation
+    // 0         1       2       3       4       5       6
+    // . . . .   . . .   . . .   . X .   X X X   . . X   X . .
+    // X X X X   . O X   X O .   X O X   X 0 X   X O X   X O X
+    // . .o. .   X X .   . X X   . . .   X X X   . . .   . . .
+    // . . . .
+    Shapes[0] = new Grid(4, 4);
+    Shapes[0]->set(0, 1, 1);
+    Shapes[0]->set(1, 1, 1);
+    Shapes[0]->set(2, 1, 1);
+    Shapes[0]->set(3, 1, 1);
+    Shapes[1] = new Grid(3, 3);
+    Shapes[1]->set(1, 1, 1);
+    Shapes[1]->set(2, 1, 1);
+    Shapes[1]->set(0, 2, 1);
+    Shapes[1]->set(1, 2, 1);
+    Shapes[2] = new Grid(3, 3);
+    Shapes[2]->set(0, 1, 1);
+    Shapes[2]->set(1, 1, 1);
+    Shapes[2]->set(1, 2, 1);
+    Shapes[2]->set(2, 2, 1);
+    Shapes[3] = new Grid(3, 3);
+    Shapes[3]->set(1, 0, 1);
+    Shapes[3]->set(0, 1, 1);
+    Shapes[3]->set(1, 1, 1);
+    Shapes[3]->set(2, 1, 1);
+    Shapes[4] = new Grid(3, 3);
+    Shapes[4]->fill(1);
+    Shapes[5] = new Grid(3, 3);
+    Shapes[5]->set(2, 0, 1);
+    Shapes[5]->set(0, 1, 1);
+    Shapes[5]->set(1, 1, 1);
+    Shapes[5]->set(2, 1, 1);
+    Shapes[6] = new Grid(3, 3);
+    Shapes[6]->set(0, 0, 1);
+    Shapes[6]->set(0, 1, 1);
+    Shapes[6]->set(1, 1, 1);
+    Shapes[6]->set(2, 1, 1);
 }
 
 LOGIC::Field::~Field()
@@ -123,6 +162,14 @@ LOGIC::Field::~Field()
     {
         delete shape;
     }
+}
+
+
+LOGIC::Grid *LOGIC::Field::getRandomShape()
+{
+    srand((unsigned int)(time(NULL) + rand()));
+    int rnd = rand() % 7;
+    return Shapes[rnd];
 }
 
 
