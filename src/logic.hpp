@@ -39,6 +39,8 @@ class LOGIC
         bool Debug = false;
         Grid *grid = NULL;
         Grid *shape = NULL;
+        i32 xShape = 0;
+        i32 yShape = 0;
         Field(u32 width, u32 height);
         ~Field();
 
@@ -46,6 +48,8 @@ class LOGIC
         bool canFitShape(i32 x, i32 y, Grid *_shape);
         /// same as canFitShape but passes default shape
         bool canFit(i32 x, i32 y);
+        /// resets positiong of shape to centered out of screen beginner pos
+        void shapeResetPos();
         /// attemps to move shape with gravity on grid
         void gravityTick();
         /// debug print grid + shape

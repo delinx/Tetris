@@ -32,7 +32,7 @@ int main()
     field->Debug = true;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
-    int offset = 0;
+    // debug TODO: Remove
     while(!WindowShouldClose())
     {
         // tick variables
@@ -62,7 +62,8 @@ int main()
             // 3. Gravity
             // 4. Solved rows
             // 5. Activations
-            // 6. Lose state check
+            // 6. Lose state checka
+            // 7. drawing (draw in layers so effects can be applied)
             log("tick");
 
             // 1. if there is no active shape then make a new random one
@@ -75,6 +76,7 @@ int main()
                 field->shape->set(1, 0, 2);
                 field->shape->set(2, 0, 3);
                 field->shape->set(1, 1, 9);
+                field->shapeResetPos();
                 if(Debug)
                 {
                     log(" -+- New shape spawned -+- ");
@@ -83,30 +85,51 @@ int main()
             // 2. Input
             if(input)
             {
-                if(inputX > 0)
+                // X axis
+                if(inputX > 0 || inputX < 0)
                 {
-                    log(">");
-                    offset++;
+                    if(Debug)
+                    {
+                        log(" $ INPUT [>] or [<] $");
+                    }
+                    if(field->shape != NULL)
+                    {
+                        int newPossibleX = field->xShape + inputX;
+                        if(field->canFit(newPossibleX, field->yShape))
+                        {
+                            // if shape can fit in the reqested position
+                            field->xShape = newPossibleX;
+                            if(Debug)
+                            {
+                                field->printWithShape(newPossibleX, field->yShape);
+                            }
+                        }
+                    }
                 }
-                else if(inputX < 0)
-                {
-                    log("<");
-                    offset--;
-                }
-                // - reset input
-                inputX = 0;
-                input = false;
+                // Rotation request
             }
+
             // 3.Gravity
-            // Debug print of tick state
-            if(Debug && field->shape != NULL)
+            if(field->shape != NULL)
             {
-                if(field->canFit(0 + offset, 0))
+                int newPossibleY = field->yShape + 1;
+                if(field->canFit(field->xShape, newPossibleY))
                 {
-                    field->printWithShape(0 + offset, 0);
+                    field->yShape = newPossibleY;
+                    // Debug print of tick state
+                    if(Debug)
+                    {
+                        log("! After gravity applied !");
+                        field->printWithShape(field->xShape, newPossibleY);
+                    }
                 }
             }
+
+            // - reset input
+            inputX = 0;
+            input = false;
         }
+
 
         // input
         // - debug toggle

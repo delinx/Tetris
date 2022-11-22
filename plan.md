@@ -3,3 +3,7 @@
 * add basic tetris functionality
 * add special abilities
 
+
+
+* Learned to use debugger
+

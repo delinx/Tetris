@@ -59,9 +59,16 @@ void LOGIC::Grid::print()
     log(buffer);
 }
 
+void LOGIC::Field::shapeResetPos()
+{
+    yShape = -3;
+    xShape = grid->WIDTH / 2 + 1;
+}
+
 LOGIC::Field::Field(u32 width, u32 height)
 {
     grid = new LOGIC::Grid(width, height);
+    shapeResetPos();
 }
 
 LOGIC::Field::~Field()
@@ -128,17 +135,21 @@ bool LOGIC::Field::canFitShape(i32 x, i32 y, Grid *_shape)
                     return false;
                 }
 
-                // check if cell of grid underneath is empty
-                if(grid->get((u32)shapeX + (u32)x, (u32)shapeY + (u32)y) == 0)
+                // check if cell of grid underneath cell of shape is empty
+                // if we are above 0 Y then skip check
+                if(y + (i32)shapeY >= 0)
                 {
-                }
-                else
-                {
-                    if(Debug)
+                    if(grid->get((u32)shapeX + (u32)x, y + (i32)shapeY) == 0)
                     {
-                        log("Y (" + std::to_string(value) + ") " + std::to_string(shapeX) + ":" + std::to_string(shapeY) + " of shape does not fit because cell is not empty " + std::to_string(x + (i32)shapeX) + ":" + std::to_string(y + (i32)shapeY) + "(" + std::to_string(grid->get((u32)shapeX + (u32)x, (u32)shapeY + (u32)y)) + ")");
                     }
-                    return false;
+                    else
+                    {
+                        if(Debug)
+                        {
+                            log("Y (" + std::to_string(value) + ") " + std::to_string(shapeX) + ":" + std::to_string(shapeY) + " of shape does not fit because cell is not empty " + std::to_string(x + (i32)shapeX) + ":" + std::to_string(y + (i32)shapeY) + "(" + std::to_string(grid->get((u32)shapeX + (u32)x, (u32)shapeY + (u32)y)) + ")");
+                        }
+                        return false;
+                    }
                 }
             }
         }
@@ -171,7 +182,7 @@ void LOGIC::Field::printWithShape(i32 x, i32 y)
         for(usize shapeX = 0; shapeX < shape->HEIGHT; shapeX++)
         {
             i32 value = shape->get((u32)shapeX, (u32)shapeY);
-            if(value != 0)
+            if(value != 0 && (i32)shapeY + y >= 0)
             {
                 tmpGrid->set((i32)shapeX + x, (i32)shapeY + y, value);
             }
