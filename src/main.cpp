@@ -29,7 +29,8 @@ int main()
     i32 inputX = 0;
     // playing field
     LOGIC::Field *field = new LOGIC::Field(10, 20);
-    field->Debug = true;
+    field->grid->set(5, 15, 8);
+    field->Debug = !true;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     // debug TODO: Remove
@@ -76,6 +77,9 @@ int main()
                 field->shape->set(1, 0, 2);
                 field->shape->set(2, 0, 3);
                 field->shape->set(1, 1, 9);
+                field->shape->set(0, 2, 0);
+                field->shape->set(1, 2, 1);
+                field->shape->set(2, 2, 0);
                 field->shapeResetPos();
                 if(Debug)
                 {
@@ -109,8 +113,9 @@ int main()
                 // Rotation request
             }
 
-            // 3.Gravity
-            if(field->shape != NULL)
+            // 3.Gravity (only if there was no input)
+            // - TODO: Input should only be able to skip 2 gravity ticks in a row max
+            if(field->shape != NULL && !input)
             {
                 int newPossibleY = field->yShape + 1;
                 if(field->canFit(field->xShape, newPossibleY))

@@ -100,9 +100,9 @@ bool LOGIC::Field::canFitShape(i32 x, i32 y, Grid *_shape)
         grid->print();
     }
     // check if shape values of not 0 is within bounds of field
-    for(usize shapeY = 0; shapeY < _shape->WIDTH; shapeY++)
+    for(usize shapeY = 0; shapeY < _shape->HEIGHT; shapeY++)
     {
-        for(usize shapeX = 0; shapeX < _shape->HEIGHT; shapeX++)
+        for(usize shapeX = 0; shapeX < _shape->WIDTH; shapeX++)
         {
             i32 value = _shape->get((u32)shapeX, (u32)shapeY);
             // logsl(value);
@@ -168,18 +168,18 @@ void LOGIC::Field::printWithShape(i32 x, i32 y)
     Grid *tmpGrid = new Grid(grid->WIDTH, grid->HEIGHT);
 
     // copy grid to tmpGrid
-    for(usize gridY = 0; gridY < shape->WIDTH; gridY++)
+    for(usize gridY = 0; gridY < grid->HEIGHT; gridY++)
     {
-        for(usize gridX = 0; gridX < shape->HEIGHT; gridX++)
+        for(usize gridX = 0; gridX < grid->WIDTH; gridX++)
         {
             i32 value = grid->get(gridX, gridY);
             tmpGrid->set(gridX, gridY, value);
         }
     }
 
-    for(usize shapeY = 0; shapeY < shape->WIDTH; shapeY++)
+    for(usize shapeY = 0; shapeY < shape->HEIGHT; shapeY++)
     {
-        for(usize shapeX = 0; shapeX < shape->HEIGHT; shapeX++)
+        for(usize shapeX = 0; shapeX < shape->WIDTH; shapeX++)
         {
             i32 value = shape->get((u32)shapeX, (u32)shapeY);
             if(value != 0 && (i32)shapeY + y >= 0)
