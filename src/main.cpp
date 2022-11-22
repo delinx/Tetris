@@ -1,6 +1,8 @@
 #include "gfxhelper.hpp"
 #include "log.hpp"
+#include "logic.hpp"
 #include "raylib.h"
+#include "types.hpp"
 #include <iostream>
 
 int main()
@@ -11,19 +13,28 @@ int main()
     SetTargetFPS(1000);
     SetExitKey(KEY_BACKSPACE);
 
+    // remove this area
+    if(0)
+    {
+        LOGIC::Grid *field = new LOGIC::Grid(10, 20);
+        field->set(1, 1, 1);
+        field->print();
+    }
+    // up to this point
+
     log(" --- Tetris init --- ");
     // main loop
     bool Debug = true;
-    float time = 0.f;
+    f32 time = 0.f;
     // - time stamps
-    float lastTimelogicTick = 0.f;
-    float logicTickDuration = 0.5f;  // every 500 ms
+    f32 lastTimelogicTick = 0.f;
+    f32 logicTickDuration = 0.5f;  // every 500 ms
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     while(!WindowShouldClose())
     {
         // tick variables
-        float DeltaTime = GetFrameTime();
+        f32 DeltaTime = GetFrameTime();
         time += DeltaTime;
 
         // trigger logic tick every logicTickDuration interval
@@ -35,6 +46,13 @@ int main()
                 // - Flip debug circle color every logical tick
                 gfxLogicTick.flip();
             }
+            // tick
+            // 1. Gravity
+            // 2. Input
+            // 3. Solved rows
+            // 4. Activations
+            // 5. Lose state check
+            log("text");
         }
 
         // input

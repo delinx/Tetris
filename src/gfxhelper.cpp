@@ -20,7 +20,7 @@ FLIPPING_CIRCLE::FLIPPING_CIRCLE(Color _primaryColor, Color _secondaryColor)
     secondaryColor = _secondaryColor;
 };
 
-void FLIPPING_CIRCLE::draw(int x, int y, float radious)
+void FLIPPING_CIRCLE::draw(i32 x, i32 y, f32 radious)
 {
     DrawCircle(x, y, radious, color);
 }
