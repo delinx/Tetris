@@ -23,7 +23,9 @@ int main()
     f32 time = 0.f;
     // - time stamps
     f32 lastTimelogicTick = 0.f;
-    f32 logicTickDuration = 0.5f;  // every 500 ms
+    f32 logicTickDurationNormal = 0.5f;   // every 500 ms
+    f32 logicTickDurationSpeedUp = 0.1f;  // every 200 ms
+    f32 logicTickDuration = logicTickDurationNormal;
     // input
     bool input = false;
     i32 inputX = 0;
@@ -57,6 +59,7 @@ int main()
             inputR = IsKeyPressed(KEY_UP) ? -1 : 1;
             input = true;
         }
+        logicTickDuration = IsKeyDown(KEY_SPACE) ? logicTickDurationSpeedUp : logicTickDurationNormal;
 
         // trigger logic tick every logicTickDuration interval
         // or on user input, whichever is sooner
