@@ -25,13 +25,12 @@ int main()
     Sound blockedSound = LoadSound("../Sounds/blocked.wav");
     Sound solvedSound = LoadSound("../Sounds/blockSolved.wav");
     Sound scoreSound = LoadSound("../Sounds/pickupCoin.wav");
-    Sound specialSound = LoadSound("../Sounds/special.wav");
-    SetSoundVolume(specialSound, 1.f);
-    SetSoundVolume(moveSound, 0.25f);
-    SetSoundVolume(blockedSound, 0.2f);
-    SetSoundVolume(solvedSound, 0.75f);
-    SetSoundVolume(tickSound, 0.1f);
-    SetSoundVolume(scoreSound, 0.3f);
+
+    SetSoundVolume(moveSound, 1.25f);
+    SetSoundVolume(blockedSound, 1.2f);
+    SetSoundVolume(solvedSound, 1.75f);
+    SetSoundVolume(tickSound, 1.1f);
+    SetSoundVolume(scoreSound, 1.3f);
     // main loop
     bool Debug = true;
     f32 time = 0.f;
