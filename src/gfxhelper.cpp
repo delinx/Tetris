@@ -115,6 +115,27 @@ void Sprite::draw()
                         break;
                 }
                 DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, clr);
+                if(value >= 10 && value <= 16)
+                {
+
+                    DrawRectangle(actualX + (gX * size) + 4, actualY + (gY * size) + 4, size - 8, size - 8, Color { 0, 0, 0, 50 });
+
+                    DrawRectangleLinesEx(Rectangle {
+                                             (f32)(actualX + (gX * size) + 4),
+                                             (f32)(actualY + (gY * size) + 4),
+                                             (f32)size - 8,
+                                             (f32)size - 8,
+                                         },
+                                         1.f, GRAY);
+
+                    DrawRectangleLinesEx(Rectangle {
+                                             (f32)(actualX + (gX * size)),
+                                             (f32)(actualY + (gY * size)),
+                                             (f32)size,
+                                             (f32)size,
+                                         },
+                                         1.f, DARKGRAY);
+                }
             }
             else
             {
