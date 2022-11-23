@@ -214,9 +214,9 @@ int main()
         if(currentShape != NULL)
         {
             currentShape->tick();
+            currentShape->move(field->xShape * 15, field->yShape * 15);
         }
 
-        // drawing sprite canvases
         // drawing
         BeginDrawing();
         ClearBackground(DARKGRAY);
