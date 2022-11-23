@@ -91,7 +91,7 @@ void Sprite::draw()
             {
                 if(Debug)
                 {
-                    DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, GREEN);
+                    DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, BLACK);
                 }
             }
         }

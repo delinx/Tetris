@@ -161,9 +161,9 @@ int main()
                             delete field->shape;
                             field->shape = tmp_copy;
                             continuesMoves++;
-                            // delete currentShape;
-                            // currentShape = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->shape->copy());
-                            // currentShape->moveInstant(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
+                            delete currentShape;
+                            currentShape = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->shape->copy());
+                            currentShape->moveInstant(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
 
                             if(Debug)
                             {

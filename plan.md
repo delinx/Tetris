@@ -22,3 +22,6 @@ Cross - removes elements in cross patter giving the score
 Star bomb - *
 Earthquake 
 Chian reaction - ignites same colour blocks
+
+Possible improvments:
+ * Rotation should be adjusted based on rotated shape
