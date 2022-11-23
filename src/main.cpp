@@ -155,12 +155,16 @@ int main()
                             tmp_copy->rotate(true);
                         }
                         // check if copy can fit at current shape XY
-                        if(field->canFit(field->xShape, field->yShape))
+                        if(field->canFitShape(field->xShape, field->yShape, tmp_copy))
                         {
                             // if shape can fit in the reqested position
                             delete field->shape;
                             field->shape = tmp_copy;
                             continuesMoves++;
+                            // delete currentShape;
+                            // currentShape = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->shape->copy());
+                            // currentShape->moveInstant(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
+
                             if(Debug)
                             {
                                 log(" * Shape was ROTATED * ");

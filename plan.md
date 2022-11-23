@@ -6,6 +6,7 @@
 
 
 * Learned to use debugger
+* I tried to divide task in much smaller chunks
 * Learned about visual debugging
 * ticks now progress on input, not just timer
 * Max two moves without gravity applied
