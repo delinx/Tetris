@@ -22,6 +22,7 @@ Cross - removes elements in cross patter giving the score
 Star bomb - *
 Earthquake 
 Chian reaction - ignites same colour blocks
+full wipe
 
 Possible improvments:
  * Rotation should be adjusted based on rotated shape
@@ -31,5 +32,9 @@ Possible improvments:
  * draw checker grid under main grid, easy 0s and 1s or what not, we can keep it without changing
  * Solve rows
  * Sounds
+ blocked 
+ burn
+ solved
+ spec
  * Visual effects (score pop up)
 

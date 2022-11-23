@@ -52,5 +52,19 @@ class Sprite
     i32 actualY;
 };
 
+class TextPopup
+{
+      public:
+    std::string text;
+    i32 x;
+    i32 y;
+    i32 size;
+    Color color;
+    f32 displayDuration;
+
+    TextPopup(std::string _text, i32 _x, i32 _y, i32 _size, Color _color, f32 displayDuration);
+    void draw(f32 time);
+};
+
 
 #endif  // GFXHELPER_HPP

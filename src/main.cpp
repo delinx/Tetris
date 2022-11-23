@@ -44,6 +44,24 @@ int main()
     i32 inputR = 0;
     // playing field
     LOGIC::Field *field = new LOGIC::Field(10, 20);
+    field->grid->set(0, 19, 10);
+    field->grid->set(1, 19, 10);
+    field->grid->set(3, 19, 10);
+    field->grid->set(4, 19, 10);
+    field->grid->set(5, 19, 10);
+    field->grid->set(6, 19, 10);
+    field->grid->set(7, 19, 10);
+    field->grid->set(9, 19, 10);
+    field->grid->set(0, 18, 10);
+    field->grid->set(1, 18, 10);
+    field->grid->set(2, 18, 10);
+    field->grid->set(3, 18, 10);
+    field->grid->set(4, 18, 10);
+    field->grid->set(5, 18, 10);
+    field->grid->set(6, 18, 10);
+    field->grid->set(7, 18, 10);
+    field->grid->set(9, 18, 10);
+
     field->Debug = !true;
     // stuck status
     int unmovedTurns = 0;
@@ -106,6 +124,8 @@ int main()
             // 7. Lose state check
             // 8. drawing (draw in layers so effects can be applied)
             log("tick");
+
+
 
             // 1. if there is no active shape then make a new random one
             if(field->shape == NULL)
@@ -227,6 +247,13 @@ int main()
             {
                 // burn shape into grid
                 field->burnShapeIntoGrid();
+
+                // solve rows
+                if(field->findSolvedRows())
+                {
+                    PlaySound(solvedSound);
+                }
+
                 // redraw the field
                 delete fieldSprite;
                 fieldSprite = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->grid->copy());
@@ -243,6 +270,8 @@ int main()
                 log(" * We are OFFICIALY stuck! * ");
             }
 
+
+
             // - reset input
             inputX = 0;
             inputR = 0;
@@ -253,6 +282,8 @@ int main()
         // input
         // - debug toggle
         Debug = (IsKeyPressed(KEY_TAB)) ? !Debug : Debug;
+
+
 
         // animation update tick
         fieldCheckBG->tick();
@@ -278,7 +309,7 @@ int main()
         // draw field
         fieldSprite->draw();
         // drawing sprites
-        if(currentShape != NULL)
+        if(currentShape != NULL && field->shape != NULL)
         {
             currentShape->draw();
         }

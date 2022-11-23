@@ -163,7 +163,7 @@ LOGIC::Field::Field(u32 width, u32 height)
     Shapes[3]->set(0, 1, 1);
     Shapes[3]->set(1, 1, 1);
     Shapes[3]->set(2, 1, 1);
-    Shapes[4] = new Grid(3, 3);
+    Shapes[4] = new Grid(2, 2);
     Shapes[4]->fill(1);
     Shapes[5] = new Grid(3, 3);
     Shapes[5]->set(2, 0, 1);
@@ -325,4 +325,56 @@ void LOGIC::Field::printWithShape(i32 x, i32 y)
     tmpGrid->print();
 
     delete tmpGrid;
+}
+
+bool LOGIC::Field::findSolvedRows()
+{
+    // check each row if its empty
+    // if it is then find special symbols in it
+    // move all rows above down
+
+    bool anyRowsWereSolved = false;
+    for(usize gridY = 0; gridY < grid->HEIGHT; gridY++)
+    {
+        // check if row has any empty spots
+        bool solved = true;
+        // trigger for sound
+        for(usize gridX = 0; gridX < grid->WIDTH; gridX++)
+        {
+            i32 value = grid->get(gridX, gridY);
+            if(value == 0)
+            {
+                solved = false;
+            }
+        }
+        if(solved)
+        {
+            anyRowsWereSolved = true;
+            // if row has no empty spots check it for special symbols and activate them
+            for(usize gridX = 0; gridX < grid->WIDTH; gridX++)
+            {
+                i32 value = grid->get(gridX, gridY);
+                switch(value)
+                {
+                    case 1000:
+                        break;
+                }
+            }
+
+            // zero out the row
+            for(usize r_x = 0; r_x < grid->WIDTH; r_x++)
+            {
+                grid->set(r_x, gridY, 0);
+            }
+            // move rows higher then solved one down
+            for(usize r_y = gridY; r_y > 0; r_y--)
+            {
+                for(usize r_x = 0; r_x < grid->WIDTH; r_x++)
+                {
+                    grid->set(r_x, r_y, grid->get(r_x, r_y - 1));
+                }
+            }
+        }
+    }
+    return anyRowsWereSolved;
 }

@@ -68,6 +68,8 @@ class LOGIC
         void printWithShape(i32 x, i32 y);
         /// get random shape
         LOGIC::Grid *getRandomShape();
+        /// find solved rows
+        bool findSolvedRows();
 
         /// burn shape into grid
         void burnShapeIntoGrid();
