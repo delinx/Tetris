@@ -25,3 +25,11 @@ Chian reaction - ignites same colour blocks
 
 Possible improvments:
  * Rotation should be adjusted based on rotated shape
+
+
+ TODO:
+ * draw checker grid under main grid, easy 0s and 1s or what not, we can keep it without changing
+ * Solve rows
+ * Sounds
+ * Visual effects (score pop up)
+

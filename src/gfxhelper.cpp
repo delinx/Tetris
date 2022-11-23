@@ -85,6 +85,12 @@ void Sprite::draw()
                     case 1:
                         DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, RED);
                         break;
+                    case 100:
+                        DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, Color { 30, 30, 30, 255 });
+                        break;
+                    case 101:
+                        DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, Color { 60, 60, 60, 255 });
+                        break;
                 }
             }
             else

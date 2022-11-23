@@ -24,7 +24,7 @@ int main()
     // - time stamps
     f32 lastTimelogicTick = 0.f;
     f32 logicTickDurationNormal = 0.4f;   // every 400 ms
-    f32 logicTickDurationSpeedUp = 0.2f;  // every 200 ms
+    f32 logicTickDurationSpeedUp = 0.1f;  // every 100 ms
     f32 logicTickDuration = logicTickDurationNormal;
     // input
     bool input = false;
@@ -50,7 +50,9 @@ int main()
     // drawing
     Sprite *currentShape = NULL;
     Sprite *fieldSprite = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->grid->copy());
-    fieldSprite->Debug = true;
+    LOGIC::Grid *fieldCheckBGGrid = new LOGIC::Grid(10, 20);
+    fieldCheckBGGrid->checkFill(100, 101);
+    Sprite *fieldCheckBG = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, fieldCheckBGGrid);
     while(!WindowShouldClose())
     {
         // tick variables
@@ -205,7 +207,6 @@ int main()
                 // redraw the field
                 delete fieldSprite;
                 fieldSprite = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->grid->copy());
-                fieldSprite->Debug = true;
 
                 // remove old shape
                 delete field->shape;
@@ -229,6 +230,7 @@ int main()
         Debug = (IsKeyPressed(KEY_TAB)) ? !Debug : Debug;
 
         // animation update tick
+        fieldCheckBG->tick();
         if(currentShape != NULL)
         {
             // animation speed of blocks
@@ -236,7 +238,7 @@ int main()
             {
                 currentShape->tick();
                 gfxAnimationTick.flip();
-                animationSpeedTimestamp = time + animationSpeed;
+                animationSpeedTimestamp += animationSpeed;
             }
             currentShape->move(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
         }
@@ -246,6 +248,8 @@ int main()
         BeginDrawing();
         ClearBackground(DARKGRAY);
 
+        // draw field checkered bg
+        fieldCheckBG->draw();
         // draw field
         fieldSprite->draw();
         // drawing sprites

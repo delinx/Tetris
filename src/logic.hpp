@@ -1,6 +1,7 @@
 #ifndef LOGIC_HPP
 #define LOGIC_HPP
 #include "log.hpp"
+#include "raylib.h"
 #include "types.hpp"
 #include <iostream>
 
@@ -35,6 +36,9 @@ class LOGIC
 
         /// rotates grid
         void rotate(bool clockwise);
+
+        /// fill grid with checkered pattren of two valuer
+        void checkFill(i32 v1, i32 v2);
 
         /// ruturns pointer to a copy of itself
         Grid *copy();

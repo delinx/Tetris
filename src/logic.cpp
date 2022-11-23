@@ -104,6 +104,28 @@ LOGIC::Grid *LOGIC::Grid::copy()
     return tmp;
 }
 
+
+void LOGIC::Grid::checkFill(i32 v1, i32 v2)
+{
+    bool _colorChecker = false;
+    for(usize y = 0; y < HEIGHT; y++)
+    {
+        for(usize x = 0; x < WIDTH; x++)
+        {
+            if(_colorChecker)
+            {
+                set((u32)x, (u32)y, v1);
+            }
+            else
+            {
+                set((u32)x, (u32)y, v2);
+            }
+            _colorChecker = !_colorChecker;
+        }
+        _colorChecker = !_colorChecker;
+    }
+}
+
 void LOGIC::Field::shapeResetPos()
 {
     yShape = -3;
