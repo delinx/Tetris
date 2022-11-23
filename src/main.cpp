@@ -9,7 +9,7 @@ int main()
 {
 
     log(" --- Init window --- ");
-    InitWindow(800, 640, "Tetris");
+    InitWindow(330, 600, "Tetris");
     SetTargetFPS(1000);
     SetExitKey(KEY_BACKSPACE);
 
@@ -23,8 +23,8 @@ int main()
     f32 time = 0.f;
     // - time stamps
     f32 lastTimelogicTick = 0.f;
-    f32 logicTickDurationNormal = 0.5f;   // every 500 ms
-    f32 logicTickDurationSpeedUp = 0.1f;  // every 200 ms
+    f32 logicTickDurationNormal = 0.4f;   // every 400 ms
+    f32 logicTickDurationSpeedUp = 0.2f;  // every 200 ms
     f32 logicTickDuration = logicTickDurationNormal;
     // input
     bool input = false;
@@ -41,12 +41,12 @@ int main()
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     // drawing parameters
-    FLIPPING_CIRCLE gfxAnimationTick(GREEN, BLACK);
-    float animationSpeed = 0.002f;
+    FLIPPING_CIRCLE gfxAnimationTick(WHITE, BLACK);
+    float animationSpeed = 0.001f;
     float animationSpeedTimestamp = 0.f;
-    int blockSize = 20;
-    int fieldOffsetX = 100;
-    int fieldOffsetY = 10;
+    int blockSize = 30;
+    int fieldOffsetX = 0;
+    int fieldOffsetY = 0;
     // drawing
     Sprite *currentShape = NULL;
     Sprite *fieldSprite = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->grid->copy());
@@ -242,16 +242,6 @@ int main()
         BeginDrawing();
         ClearBackground(DARKGRAY);
 
-        if(Debug)
-        {
-            DrawFPS(10, 10);
-            gfxLogicTick.draw(110, 19, 6);
-            DrawText(("Frame time: " + std::to_string(DeltaTime)).c_str(), 10, 35, 12, WHITE);
-            DrawText(("Time: " + std::to_string(time)).c_str(), 10, 50, 12, WHITE);
-
-            gfxAnimationTick.draw(130, 19, 6);
-        }
-
         // draw field
         fieldSprite->draw();
         // drawing sprites
@@ -260,6 +250,14 @@ int main()
             currentShape->draw();
         }
 
+        if(Debug)
+        {
+            DrawFPS(10, 10);
+            gfxLogicTick.draw(110, 19, 6);
+            DrawText(("Frame time: " + std::to_string(DeltaTime)).c_str(), 10, 35, 12, WHITE);
+            DrawText(("Time: " + std::to_string(time)).c_str(), 10, 50, 12, WHITE);
+            gfxAnimationTick.draw(130, 19, 6);
+        }
         EndDrawing();
     }
 
