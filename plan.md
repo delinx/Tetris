@@ -29,12 +29,6 @@ Possible improvments:
 
 
  TODO:
- * draw checker grid under main grid, easy 0s and 1s or what not, we can keep it without changing
- * Solve rows
- * Sounds
- blocked 
- burn
- solved
- spec
+
  * Visual effects (score pop up)
 

@@ -158,6 +158,8 @@ void LOGIC::Field::shapeResetPos()
 
 LOGIC::Field::Field(u32 width, u32 height)
 {
+    specialSound = LoadSound("../Sounds/special.wav");
+    SetSoundVolume(specialSound, 1.f);
     grid = new LOGIC::Grid(width, height);
     shapeResetPos();
 
@@ -381,6 +383,7 @@ bool LOGIC::Field::findSolvedRows()
                 switch(value)
                 {
                     case 1000:
+                        PlaySound(specialSound);
                         log(" $$$ SOLVED FULL WIPE $$$");
                         for(usize r_y = 0; r_y < grid->HEIGHT; r_y++)
                         {
@@ -400,6 +403,7 @@ bool LOGIC::Field::findSolvedRows()
             // zero out the row
             for(usize r_x = 0; r_x < grid->WIDTH; r_x++)
             {
+                realScore += 100;
                 grid->set(r_x, gridY, 0);
             }
             // move rows higher then solved one down

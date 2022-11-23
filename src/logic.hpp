@@ -58,6 +58,7 @@ class LOGIC
         i32 realScore = 0;
         Field(u32 width, u32 height);
         ~Field();
+        Sound specialSound;
 
         Grid *Shapes[7];
 

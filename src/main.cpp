@@ -24,14 +24,14 @@ int main()
     Sound tickSound = LoadSound("../Sounds/tick.wav");
     Sound blockedSound = LoadSound("../Sounds/blocked.wav");
     Sound solvedSound = LoadSound("../Sounds/blockSolved.wav");
-    Sound specialSound = LoadSound("../Sounds/special.wav");
     Sound scoreSound = LoadSound("../Sounds/pickupCoin.wav");
+    Sound specialSound = LoadSound("../Sounds/special.wav");
+    SetSoundVolume(specialSound, 1.f);
     SetSoundVolume(moveSound, 0.25f);
     SetSoundVolume(blockedSound, 0.2f);
-    SetSoundVolume(solvedSound, 1.f);
-    SetSoundVolume(specialSound, 1.f);
-    SetSoundVolume(tickSound, 0.25f);
-    SetSoundVolume(scoreSound, 0.75f);
+    SetSoundVolume(solvedSound, 0.75f);
+    SetSoundVolume(tickSound, 0.1f);
+    SetSoundVolume(scoreSound, 0.3f);
     // main loop
     bool Debug = true;
     f32 time = 0.f;
@@ -137,8 +137,7 @@ int main()
                 // TODO: make so added shape is random
                 field->shape = field->getRandomShape()->copy();
                 field->shape->mask(1, rand() % 7 + 10);
-                // field->shape->addSymbol(rand() % 10 + 1000);
-                field->shape->addSymbol(1000);
+                field->shape->addSymbol((rand() % 5) + 1000);
 
                 field->shapeResetPos();
                 delete currentShape;
@@ -325,7 +324,7 @@ int main()
         {
             PlaySound(scoreSound);
 
-            field->score++;
+            field->score += 2;
 
             scoreColorToggle++;
 
