@@ -84,7 +84,7 @@ void Sprite::draw()
                 switch(value)
                 {
                     case 1:
-                        clr = RED;
+                        clr = WHITE;
                         break;
                     case 100:
                         clr = Color { 30, 30, 30, 255 };
@@ -113,10 +113,13 @@ void Sprite::draw()
                     case 16:
                         clr = Color { 230, 65, 55, 255 };
                         break;
+                    case 1000:
+                        clr = GOLD;
+                        break;
                 }
-                DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, clr);
-                if(value >= 10 && value <= 16)
+                if(value != 100 && value != 101)
                 {
+                    DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, clr);
 
                     DrawRectangle(actualX + (gX * size) + 4, actualY + (gY * size) + 4, size - 8, size - 8, Color { 0, 0, 0, 50 });
 
@@ -135,6 +138,10 @@ void Sprite::draw()
                                              (f32)size,
                                          },
                                          1.f, DARKGRAY);
+                }
+                else
+                {
+                    DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, clr);
                 }
             }
             else

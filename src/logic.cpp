@@ -1,4 +1,5 @@
 #include "logic.hpp"
+#include "log.hpp"
 
 LOGIC::Grid::Grid(u32 width, u32 height)
 {
@@ -123,6 +124,29 @@ void LOGIC::Grid::checkFill(i32 v1, i32 v2)
             _colorChecker = !_colorChecker;
         }
         _colorChecker = !_colorChecker;
+    }
+}
+
+void LOGIC::Grid::addSymbol(i32 id)
+{
+    switch(id)
+    {
+        // full wipe 1000
+        case 1000:
+            log(" $$$ BONUS : FULL WIPE $$$ ");
+            while(true)
+            {
+                int rnd = rand() % (WIDTH * HEIGHT);
+                if(grid[rnd] != 0)
+                {
+                    grid[rnd] = 1000;
+                    break;
+                }
+            }
+            break;
+
+        case 1001:
+            break;
     }
 }
 
@@ -357,6 +381,18 @@ bool LOGIC::Field::findSolvedRows()
                 switch(value)
                 {
                     case 1000:
+                        log(" $$$ SOLVED FULL WIPE $$$");
+                        for(usize r_y = 0; r_y < grid->HEIGHT; r_y++)
+                        {
+                            for(usize r_x = 0; r_x < grid->WIDTH; r_x++)
+                            {
+                                if(grid->get(r_x, r_y) != 0)
+                                {
+                                    realScore += 200;
+                                    grid->set(r_x, r_y, 0);
+                                }
+                            }
+                        }
                         break;
                 }
             }

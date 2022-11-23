@@ -40,6 +40,9 @@ class LOGIC
         /// fill grid with checkered pattren of two valuer
         void checkFill(i32 v1, i32 v2);
 
+        /// add bonus symbol
+        void addSymbol(i32 id);
+
         /// ruturns pointer to a copy of itself
         Grid *copy();
     };
@@ -51,6 +54,8 @@ class LOGIC
         Grid *shape = NULL;
         i32 xShape = 0;
         i32 yShape = 0;
+        i32 score = 0;
+        i32 realScore = 0;
         Field(u32 width, u32 height);
         ~Field();
 
@@ -70,6 +75,7 @@ class LOGIC
         LOGIC::Grid *getRandomShape();
         /// find solved rows
         bool findSolvedRows();
+
 
         /// burn shape into grid
         void burnShapeIntoGrid();

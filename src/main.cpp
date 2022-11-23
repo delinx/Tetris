@@ -25,11 +25,13 @@ int main()
     Sound blockedSound = LoadSound("../Sounds/blocked.wav");
     Sound solvedSound = LoadSound("../Sounds/blockSolved.wav");
     Sound specialSound = LoadSound("../Sounds/special.wav");
+    Sound scoreSound = LoadSound("../Sounds/pickupCoin.wav");
     SetSoundVolume(moveSound, 0.25f);
     SetSoundVolume(blockedSound, 0.2f);
     SetSoundVolume(solvedSound, 1.f);
     SetSoundVolume(specialSound, 1.f);
     SetSoundVolume(tickSound, 0.25f);
+    SetSoundVolume(scoreSound, 0.75f);
     // main loop
     bool Debug = true;
     f32 time = 0.f;
@@ -46,6 +48,7 @@ int main()
     LOGIC::Field *field = new LOGIC::Field(10, 20);
     field->grid->set(0, 19, 10);
     field->grid->set(1, 19, 10);
+    field->grid->set(2, 19, 10);
     field->grid->set(3, 19, 10);
     field->grid->set(4, 19, 10);
     field->grid->set(5, 19, 10);
@@ -83,6 +86,7 @@ int main()
     LOGIC::Grid *fieldCheckBGGrid = new LOGIC::Grid(10, 20);
     fieldCheckBGGrid->checkFill(100, 101);
     Sprite *fieldCheckBG = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, fieldCheckBGGrid);
+    i32 scoreColorToggle = 0;
     while(!WindowShouldClose())
     {
         // tick variables
@@ -133,6 +137,8 @@ int main()
                 // TODO: make so added shape is random
                 field->shape = field->getRandomShape()->copy();
                 field->shape->mask(1, rand() % 7 + 10);
+                // field->shape->addSymbol(rand() % 10 + 1000);
+                field->shape->addSymbol(1000);
 
                 field->shapeResetPos();
                 delete currentShape;
@@ -313,6 +319,30 @@ int main()
         {
             currentShape->draw();
         }
+        // draw score
+        Color scoreColor = GOLD;
+        if(field->realScore > field->score)
+        {
+            PlaySound(scoreSound);
+
+            field->score++;
+
+            scoreColorToggle++;
+
+            if(scoreColorToggle < 100)
+            {
+                scoreColor = GOLD;
+            }
+            else
+            {
+                scoreColor = YELLOW;
+            }
+            if(scoreColorToggle > 200)
+            {
+                scoreColorToggle = 0;
+            }
+        }
+        DrawText(("Score: " + std::to_string(field->score)).c_str(), 150, 5, 20, scoreColor);
 
         if(Debug)
         {
