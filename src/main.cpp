@@ -32,7 +32,6 @@ int main()
     i32 inputR = 0;
     // playing field
     LOGIC::Field *field = new LOGIC::Field(10, 20);
-    field->grid->set(5, 15, 8);
     field->Debug = !true;
     // stuck status
     int unmovedTurns = 0;
@@ -41,15 +40,17 @@ int main()
     i32 continuesMoves = 0;
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
-    // drawing
-    Sprite *currentShape = NULL;
-    // drawing blocks parameters
+    // drawing parameters
     FLIPPING_CIRCLE gfxAnimationTick(GREEN, BLACK);
     float animationSpeed = 0.002f;
     float animationSpeedTimestamp = 0.f;
-    int blockSize = 15;
-    int fieldOffsetX = 25;
-    int fieldOffsetY = 25;
+    int blockSize = 20;
+    int fieldOffsetX = 100;
+    int fieldOffsetY = 10;
+    // drawing
+    Sprite *currentShape = NULL;
+    Sprite *fieldSprite = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->grid->copy());
+    fieldSprite->Debug = true;
     while(!WindowShouldClose())
     {
         // tick variables
@@ -100,8 +101,10 @@ int main()
                 field->shapeResetPos();
                 delete currentShape;
                 currentShape = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->shape->copy());
+                currentShape->moveInstant(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
                 if(Debug)
                 {
+                    // currentShape->Debug = true;
                     log(" -+- New shape spawned -+- ");
                 }
             }
@@ -195,6 +198,10 @@ int main()
             {
                 // burn shape into grid
                 field->burnShapeIntoGrid();
+                // redraw the field
+                delete fieldSprite;
+                fieldSprite = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->grid->copy());
+                fieldSprite->Debug = true;
 
                 // remove old shape
                 delete field->shape;
@@ -220,7 +227,7 @@ int main()
         // animation update tick
         if(currentShape != NULL)
         {
-            // animation speed
+            // animation speed of blocks
             if(time > animationSpeedTimestamp + animationSpeed)
             {
                 currentShape->tick();
@@ -229,6 +236,7 @@ int main()
             }
             currentShape->move(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
         }
+        fieldSprite->tick();
 
         // drawing
         BeginDrawing();
@@ -243,6 +251,9 @@ int main()
 
             gfxAnimationTick.draw(130, 19, 6);
         }
+
+        // draw field
+        fieldSprite->draw();
         // drawing sprites
         if(currentShape != NULL)
         {

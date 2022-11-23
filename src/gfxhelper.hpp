@@ -32,6 +32,8 @@ class Sprite
     Sprite(i32 _x, i32 _y, i32 _size, LOGIC::Grid *_grid);
     ~Sprite();
 
+    bool Debug = false;
+
     i32 x;
     i32 y;
 

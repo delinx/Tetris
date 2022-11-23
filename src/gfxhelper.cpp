@@ -87,6 +87,13 @@ void Sprite::draw()
                         break;
                 }
             }
+            else
+            {
+                if(Debug)
+                {
+                    DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, GREEN);
+                }
+            }
         }
     }
 }
