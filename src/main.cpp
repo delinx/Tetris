@@ -18,6 +18,18 @@ int main()
     // up to this point
 
     log(" --- Tetris init --- ");
+    // sounds
+    InitAudioDevice();
+    Sound moveSound = LoadSound("../Sounds/move.wav");
+    Sound tickSound = LoadSound("../Sounds/tick.wav");
+    Sound blockedSound = LoadSound("../Sounds/blocked.wav");
+    Sound solvedSound = LoadSound("../Sounds/blockSolved.wav");
+    Sound specialSound = LoadSound("../Sounds/special.wav");
+    SetSoundVolume(moveSound, 0.25f);
+    SetSoundVolume(blockedSound, 0.2f);
+    SetSoundVolume(solvedSound, 1.f);
+    SetSoundVolume(specialSound, 1.f);
+    SetSoundVolume(tickSound, 0.25f);
     // main loop
     bool Debug = true;
     f32 time = 0.f;
@@ -76,6 +88,7 @@ int main()
         // or on user input, whichever is sooner
         if(time > lastTimelogicTick + logicTickDuration || input)
         {
+            PlaySound(tickSound);
             lastTimelogicTick = time;
             if(Debug)
             {
@@ -130,10 +143,15 @@ int main()
                             field->xShape = newPossibleX;
                             unmovedTurns = 0;
                             continuesMoves++;
+                            PlaySound(moveSound);
                             if(Debug)
                             {
                                 field->printWithShape(newPossibleX, field->yShape);
                             }
+                        }
+                        else
+                        {
+                            PlaySound(blockedSound);
                         }
                     }
                 }
@@ -167,12 +185,16 @@ int main()
                             delete currentShape;
                             currentShape = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->shape->copy());
                             currentShape->moveInstant(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
-
+                            PlaySound(moveSound);
                             if(Debug)
                             {
                                 log(" * Shape was ROTATED * ");
                                 field->printWithShape(field->xShape, field->yShape);
                             }
+                        }
+                        else
+                        {
+                            PlaySound(blockedSound);
                         }
                     }
                 }
@@ -215,6 +237,8 @@ int main()
 
                 // reset unmoved turns status
                 unmovedTurns = 0;
+
+                PlaySound(blockedSound);
 
                 log(" * We are OFFICIALY stuck! * ");
             }
