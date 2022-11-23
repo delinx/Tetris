@@ -43,6 +43,13 @@ int main()
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     // drawing
     Sprite *currentShape = NULL;
+    // drawing blocks parameters
+    FLIPPING_CIRCLE gfxAnimationTick(GREEN, BLACK);
+    float animationSpeed = 0.002f;
+    float animationSpeedTimestamp = 0.f;
+    int blockSize = 15;
+    int fieldOffsetX = 25;
+    int fieldOffsetY = 25;
     while(!WindowShouldClose())
     {
         // tick variables
@@ -92,7 +99,7 @@ int main()
 
                 field->shapeResetPos();
                 delete currentShape;
-                currentShape = new Sprite(100, 100, 15, field->shape->copy());
+                currentShape = new Sprite(fieldOffsetX, fieldOffsetY, blockSize, field->shape->copy());
                 if(Debug)
                 {
                     log(" -+- New shape spawned -+- ");
@@ -213,8 +220,14 @@ int main()
         // animation update tick
         if(currentShape != NULL)
         {
-            currentShape->tick();
-            currentShape->move(field->xShape * 15, field->yShape * 15);
+            // animation speed
+            if(time > animationSpeedTimestamp + animationSpeed)
+            {
+                currentShape->tick();
+                gfxAnimationTick.flip();
+                animationSpeedTimestamp = time + animationSpeed;
+            }
+            currentShape->move(field->xShape * blockSize + fieldOffsetX, field->yShape * blockSize + fieldOffsetY);
         }
 
         // drawing
@@ -227,6 +240,8 @@ int main()
             gfxLogicTick.draw(110, 19, 6);
             DrawText(("Frame time: " + std::to_string(DeltaTime)).c_str(), 10, 35, 12, WHITE);
             DrawText(("Time: " + std::to_string(time)).c_str(), 10, 50, 12, WHITE);
+
+            gfxAnimationTick.draw(130, 19, 6);
         }
         // drawing sprites
         if(currentShape != NULL)

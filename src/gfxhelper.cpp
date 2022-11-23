@@ -44,7 +44,6 @@ void Sprite::move(i32 _x, i32 _y)
     y = _y;
 }
 
-
 void Sprite::moveInstant(i32 _x, i32 _y)
 {
     x = _x;
