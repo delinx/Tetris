@@ -79,19 +79,42 @@ void Sprite::draw()
             i32 value = grid->get(gX, gY);
             if(value != 0)
             {
+                Color clr;
                 // gX * size, gY * size
                 switch(value)
                 {
                     case 1:
-                        DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, RED);
+                        clr = RED;
                         break;
                     case 100:
-                        DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, Color { 30, 30, 30, 255 });
+                        clr = Color { 30, 30, 30, 255 };
                         break;
                     case 101:
-                        DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, Color { 60, 60, 60, 255 });
+                        clr = Color { 60, 60, 60, 255 };
+                        break;
+                    case 10:
+                        clr = Color { 100, 201, 211, 255 };
+                        break;
+                    case 11:
+                        clr = Color { 68, 98, 165, 255 };
+                        break;
+                    case 12:
+                        clr = Color { 240, 175, 205, 255 };
+                        break;
+                    case 13:
+                        clr = Color { 230, 230, 70, 255 };
+                        break;
+                    case 14:
+                        clr = Color { 100, 190, 90, 255 };
+                        break;
+                    case 15:
+                        clr = Color { 140, 90, 170, 255 };
+                        break;
+                    case 16:
+                        clr = Color { 230, 65, 55, 255 };
                         break;
                 }
+                DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, clr);
             }
             else
             {

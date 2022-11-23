@@ -99,6 +99,7 @@ int main()
             {
                 // TODO: make so added shape is random
                 field->shape = field->getRandomShape()->copy();
+                field->shape->mask(1, rand() % 7 + 10);
 
                 field->shapeResetPos();
                 delete currentShape;
