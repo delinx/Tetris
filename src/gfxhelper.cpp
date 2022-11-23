@@ -1,4 +1,5 @@
 #include "gfxhelper.hpp"
+#include <raylib.h>
 
 void FLIPPING_CIRCLE::flip()
 {
@@ -53,28 +54,40 @@ void Sprite::moveInstant(i32 _x, i32 _y)
 }
 
 
-Sprite::Sprite(i32 _x, i32 _y, i32 _width, i32 _height, f32 _rot)
+Sprite::Sprite(i32 _x, i32 _y, i32 _size, LOGIC::Grid *_grid)
 {
     x = _x;
     y = _y;
     actualX = x;
     actualY = y;
-    width = _width;
-    height = _height;
-    rot = _rot;
+    size = _size;
+    grid = _grid;
 
-    Canvas = LoadRenderTexture(_width, _height);
-    SetTextureFilter(Canvas.texture, TEXTURE_FILTER_POINT);
+    // TODO: Convert canvas into boxes
 }
 
-void Sprite::drawCanvas()
+Sprite::~Sprite()
 {
-    BeginTextureMode(Canvas);
-    DrawRectangle(0, 0, width, height, RED);
-    EndTextureMode();
+    delete grid;
 }
 
 void Sprite::draw()
 {
-    DrawTextureEx(Canvas.texture, Vector2 { (f32)actualX, (f32)actualY }, rot, 1.f, WHITE);
+    for(usize gX = 0; gX < grid->WIDTH; gX++)
+    {
+        for(usize gY = 0; gY < grid->HEIGHT; gY++)
+        {
+            i32 value = grid->get(gX, gY);
+            if(value != 0)
+            {
+                // gX * size, gY * size
+                switch(value)
+                {
+                    case 1:
+                        DrawRectangle(actualX + (gX * size), actualY + (gY * size), size, size, RED);
+                        break;
+                }
+            }
+        }
+    }
 }

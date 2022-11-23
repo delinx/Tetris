@@ -1,6 +1,7 @@
 #ifndef GFXHELPER_HPP
 #define GFXHELPER_HPP
 #include "log.hpp"
+#include "logic.hpp"
 #include "raylib.h"
 #include "types.hpp"
 #include <iostream>
@@ -28,28 +29,26 @@ class FLIPPING_CIRCLE
 class Sprite
 {
       public:
-    Sprite(i32 _x, i32 _y, i32 _width, i32 _height, f32 _rot);
+    Sprite(i32 _x, i32 _y, i32 _size, LOGIC::Grid *_grid);
+    ~Sprite();
 
     i32 x;
     i32 y;
 
-    f32 rot;
+    LOGIC::Grid *grid;
 
-    i32 width;
-    i32 height;
-
-    RenderTexture2D Canvas;
+    i32 size;
 
     void tick();
     void move(i32 _x, i32 _y);
     void moveInstant(i32 _x, i32 _y);
 
-    void drawCanvas();
     void draw();
 
       private:
     i32 actualX;
     i32 actualY;
 };
+
 
 #endif  // GFXHELPER_HPP

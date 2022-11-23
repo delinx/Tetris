@@ -42,7 +42,7 @@ int main()
     // Other
     FLIPPING_CIRCLE gfxLogicTick(YELLOW, RED);
     // drawing
-    Sprite *tSprite = new Sprite(100, 100, 50, 50, 0.f);
+    Sprite *currentShape = NULL;
     while(!WindowShouldClose())
     {
         // tick variables
@@ -91,6 +91,8 @@ int main()
                 field->shape = field->getRandomShape()->copy();
 
                 field->shapeResetPos();
+                delete currentShape;
+                currentShape = new Sprite(100, 100, 15, field->shape->copy());
                 if(Debug)
                 {
                     log(" -+- New shape spawned -+- ");
@@ -209,10 +211,12 @@ int main()
         Debug = (IsKeyPressed(KEY_TAB)) ? !Debug : Debug;
 
         // animation update tick
-        tSprite->tick();
+        if(currentShape != NULL)
+        {
+            currentShape->tick();
+        }
 
         // drawing sprite canvases
-        tSprite->drawCanvas();
         // drawing
         BeginDrawing();
         ClearBackground(DARKGRAY);
@@ -223,8 +227,13 @@ int main()
             gfxLogicTick.draw(110, 19, 6);
             DrawText(("Frame time: " + std::to_string(DeltaTime)).c_str(), 10, 35, 12, WHITE);
             DrawText(("Time: " + std::to_string(time)).c_str(), 10, 50, 12, WHITE);
-            tSprite->draw();
         }
+        // drawing sprites
+        if(currentShape != NULL)
+        {
+            currentShape->draw();
+        }
+
         EndDrawing();
     }
 
